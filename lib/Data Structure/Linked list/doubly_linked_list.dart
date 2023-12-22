@@ -1,11 +1,11 @@
 import 'dart:io';
 
-class Node {
-  dynamic data;
+class Node<T> {
+  T? value;
   Node? prev;
   Node? next;
 
-  Node(this.data);
+  Node(this.value);
 }
 
 class DoublyLinkedList {
@@ -13,46 +13,46 @@ class DoublyLinkedList {
   Node? tail;
 
   // Insertion at the beginning of the list
-  void insertAtBeginning(dynamic data) {
-    Node newNode = Node(data);
+  void prepend(value) {
+    Node newNode = Node(value);
     if (head == null) {
       head = newNode;
       tail = newNode;
-    } else {
-      newNode.next = head;
-      head!.prev = newNode;
-      head = newNode;
+      return;
     }
+    newNode.next = head;
+    head!.prev = newNode;
+    head = newNode;
   }
 
   // Insertion at the end of the list
-  void insertAtEnd(dynamic data) {
-    Node newNode = Node(data);
+  void append(value) {
+    Node newNode = Node(value);
     if (head == null) {
       head = newNode;
       tail = newNode;
-    } else {
-      newNode.prev = tail;
-      tail!.next = newNode;
-      tail = newNode;
+      return;
     }
+    newNode.prev = tail;
+    tail!.next = newNode;
+    tail = newNode;
   }
 
   // Insertion at a specific position
-  void insertAtPosition(dynamic data, int position) {
-    Node newNode = Node(data);
-    if (position < 0) position = 0;
+  void insertAtPosition(value, int position) {
+    Node newNode = Node(value);
+    if (position < 1) position = 0;
 
-    if (head == null || position == 0) {
-      insertAtBeginning(data);
+    if (head == null || position == 1) {
+      prepend(value);
     } else {
       Node? current = head;
-      for (int i = 0; i < position - 1 && current != null; i++) {
+      for (int i = 0; i < position - 2 && current != null; i++) {
         current = current.next;
       }
 
       if (current == null) {
-        insertAtEnd(data);
+        append(value);
       } else {
         newNode.next = current.next;
         newNode.prev = current;
@@ -90,9 +90,8 @@ class DoublyLinkedList {
 
   // Deletion from a specific position
   void deleteFromPosition(int position) {
-    if (head == null || position < 0) return;
-
-    if (position == 0) {
+    if (head == null || position < 1) return;
+    if (position == 1) {
       deleteFromBeginning();
     } else {
       Node? current = head;
@@ -111,11 +110,29 @@ class DoublyLinkedList {
     }
   }
 
+  // Deletion by value
+  void deleteByValue(value) {
+    if (head == null) {
+      print('List is empty, nothing to remove');
+      return;
+    }
+    if (head!.value == value) {
+      head = head!.next;
+      head!.prev = null;
+      return;
+    }
+
+    Node? current = head;
+    while (current!.next != null && current.next!.value != value) {
+      current = current.next;
+    }
+  }
+
   // Display the elements of the list
   void display() {
     Node? current = head;
     while (current != null) {
-      stdout.write('${current.data} \t');
+      stdout.write('${current.value} \t');
       if (current.next == null) {
         print('');
       }
@@ -123,10 +140,11 @@ class DoublyLinkedList {
     }
   }
 
+  // Reversing the elements of the list
   void displayReverse() {
     Node? current = tail;
     while (current != null) {
-      stdout.write('${current.data} \t');
+      stdout.write('${current.value} \t');
       current = current.prev;
     }
   }
@@ -135,16 +153,15 @@ class DoublyLinkedList {
 void main() {
   DoublyLinkedList myList = DoublyLinkedList();
 
-  myList.insertAtEnd(1);
-  myList.insertAtEnd(2);
-  myList.insertAtEnd(3);
-
+  myList.prepend(4);
+  myList.prepend(2);
+  myList.prepend(1);
+  
   print("Original List:");
   myList.display();
-
-  myList.insertAtBeginning(0);
-  myList.insertAtEnd(4);
-  myList.insertAtPosition(5, 3);
+  // myList.prepend(0);
+  // myList.append(4);
+  myList.insertAtPosition(3, 2);
 
   print("\nList after Insertions:");
   myList.display();
@@ -156,6 +173,9 @@ void main() {
   print("\nList after Deletions:");
   myList.display();
 
-  print('\nList after Reversing');
-  myList.displayReverse();
+  // print('\nList after Reversing');
+  // myList.displayReverse();
+
+  myList.deleteByValue(3);
+  myList.display();
 }

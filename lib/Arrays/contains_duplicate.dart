@@ -1,7 +1,19 @@
 void main() {
-  bool result = containsDuplicateSingleLoop([1, 2, 3, 4]);
+  bool result = containsDuplicate([1, 2, 3, 4]);
   print(result);
 }
+
+
+// containsDuplicate(List<int> arr) {
+//   Set<int> num = {};
+//   for (var value in arr) {
+//     if (num.contains(value)) {
+//       return true;
+//     }
+//     num.add(value);
+//   }
+//   return false;
+// }
 
 containsDuplicate(List<int> arr) {
   for (int i = 0; i < arr.length; i++) {
@@ -10,17 +22,6 @@ containsDuplicate(List<int> arr) {
         return true;
       }
     }
-  }
-  return false;
-}
-
-containsDuplicateSingleLoop(List<int> arr) {
-  Set<int> num = {};
-  for (var value in arr) {
-    if (num.contains(value)) {
-      return true;
-    }
-    num.add(value);
   }
   return false;
 }

@@ -1,7 +1,5 @@
 void main(List<String> arguments) {
-  // List<int> result = 
   moveToRight([5, 5, 1, 8, 5, 3, 5, 7, 1], 5);
-  // print(result);
 }
 
 void moveToRight(List<int> arr, int target) {

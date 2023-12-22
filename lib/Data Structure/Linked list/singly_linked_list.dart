@@ -16,71 +16,77 @@ class LinkedList {
 
   int getSize() {
     int count = 0;
-    Node? temp = head;
-    while (temp != null) {
+    Node? current = head;
+    while (current != null) {
       count++;
-      temp = temp.next;
+      current = current.next;
     }
     return count;
   }
 
+  // Insertion at the beginning of the list
   void prepend(value) {
-    Node node = Node(value);
-    if (head != null) {
-      node.next = head;
+    Node newNode = Node(value);
+    if (head == null) {
+      head = newNode;
+      return;
     }
-    head = node;
+    newNode.next = head;
+    head = newNode;
   }
 
+  // Insertion at the end of the list
   void append(value) {
-    Node node = Node(value);
+    Node newNode = Node(value);
     if (head == null) {
-      head = node;
+      head = newNode;
       return;
     }
     Node? current = head;
     while (current!.next != null) {
       current = current.next;
     }
-    current.next = node;
+    current.next = newNode;
   }
 
-  insertAtIndex(value, index) {
-    if (index < 0) {
-      print('Invalid index');
+  // Insertion at a specific position
+  insertAtPosition(value, position) {
+    Node newNode = Node(value);
+    if (position < 1) {
+      print('Invalid position');
       return;
     }
-    if (index == 0) {
+    if (position == 1) {
       prepend(value);
       return;
     }
-    Node node = Node(value);
     Node? current = head;
-    for (int i = 0; i < index - 1; i++) {
+    for (int i = 0; i < position - 2; i++) {
       if (current!.next == null) {
-        print('Index out of range');
+        print('Position out of range');
         return;
       }
       current = current.next;
     }
-    node.next = current!.next;
-    current.next = node;
+    newNode.next = current!.next;
+    current.next = newNode;
   }
 
-  removeAtIndex(index) {
-    if (index <= 0) {
-      print('Invalid index');
+  // Deletion from a specific position
+  removeAtPostion(position) {
+    if (position < 1) {
+      print('Invalid position');
       return;
     }
     Node? removeNode;
-    if (index == 0) {
+    if (position == 1) {
       removeNode = head;
       head = removeNode!.next;
     } else {
       Node? current = head;
-      for (int i = 0; i < index - 1; i++) {
+      for (int i = 0; i < position - 2; i++) {
         if (current!.next == null) {
-          print('Index out of range');
+          print('Postion out of range');
         }
         current = current.next;
       }
@@ -90,6 +96,7 @@ class LinkedList {
     return removeNode.value;
   }
 
+  // Deletion of a specific value
   removeValue(value) {
     if (isEmpty()) {
       print('List is empty, nothing to remove');
@@ -115,6 +122,7 @@ class LinkedList {
     }
   }
 
+  // Search by value
   search(value) {
     if (isEmpty()) {
       print('List is empty');
@@ -136,6 +144,7 @@ class LinkedList {
     }
   }
 
+  // Reversing the elements of the list
   reverse() {
     Node? prev;
     Node? current = head;
@@ -148,6 +157,32 @@ class LinkedList {
     head = prev;
   }
 
+  // Deleting duplicates from a sorted list
+  removeDuplicatesFromSortedList() {
+    if (isEmpty()) {
+      print('List is empty');
+      return;
+    }
+    Node? current = head;
+    for (var i = 0; current!.next!.next != null; i++) {
+      if (current.value == current.next!.value) {
+        current.next = current.next!.next;
+      }
+      current = current.next;
+    }
+    if (current.value == current.next!.value) {
+      current.next = current.next!.next;
+    }
+  }
+
+  // Array to linkedList
+  arrayToLinkedList(List<dynamic> arr) {
+    for (var element in arr) {
+      append(element);
+    }
+  }
+
+  // Display the elements of the list
   void printList() {
     Node? current = head;
     while (current != null) {
@@ -162,23 +197,27 @@ class LinkedList {
 
 void main() {
   LinkedList linkedList = LinkedList();
-  linkedList.prepend(1);
-  linkedList.printList();
   linkedList.prepend(2);
   linkedList.printList();
-  linkedList.append(3);
+  linkedList.prepend(1);
+  linkedList.printList();
+  linkedList.append(2);
   linkedList.printList();
   linkedList.append(5);
   linkedList.printList();
-  linkedList.insertAtIndex(10, 1);
+  linkedList.insertAtPosition(5, 5);
   linkedList.printList();
-  linkedList.removeAtIndex(0);
-  linkedList.removeValue(3);
+  // linkedList.removeAtPostion(1);
+  // linkedList.removeValue(3);
   // print(linkedList.search(11));
-  linkedList.printList();
-  // linkedList.reverse();
   // linkedList.printList();
+  linkedList.removeDuplicatesFromSortedList();
+  linkedList.printList();
   print("\nIs List Empty: ${linkedList.isEmpty()}");
 
   print("Size of list: ${linkedList.getSize()}");
+
+  LinkedList ls = LinkedList();
+  ls.arrayToLinkedList([3, 5, 25, 2, 2, 4]);
+  ls.printList();
 }

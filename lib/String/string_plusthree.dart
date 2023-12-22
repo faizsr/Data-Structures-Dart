@@ -1,9 +1,9 @@
 void main() {
-  String result = maxProductDifference("hai", 3);
+  String result = replaceEachAlphaToAnother("hai", 3);
   print(result);
 }
 
-String maxProductDifference(String str, int key) {
+String replaceEachAlphaToAnother(String str, int key) {
   int value = key % 26;
   List<String> charArray = [];
   for (int i = 0; i < str.length; i++) {
