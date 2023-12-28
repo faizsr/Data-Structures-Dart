@@ -16,9 +16,8 @@ class Stack {
       top = newNode;
       return;
     }
-    Node? current = top;
+    newNode.next = top;
     top = newNode;
-    top!.next = current;
   }
 
   pop() {
