@@ -19,6 +19,8 @@ merge(List<int> leftArr, List<int> rightArr) {
   while (leftArr.isNotEmpty && rightArr.isNotEmpty) {
     if (leftArr[0] <= rightArr[0]) {
       sortedArr.add(leftArr.removeAt(0));
+      print(sortedArr);
+      print(leftArr);
     } else {
       sortedArr.add(rightArr.removeAt(0));
     }

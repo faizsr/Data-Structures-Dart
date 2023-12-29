@@ -1,39 +1,42 @@
-class HashNode<k, v> {
-  late k key;
-  late v value;
-  HashNode<k, v>? next;
+class HashNode {
+  late String key;
+  late dynamic value;
+  HashNode? next;
 
   HashNode(this.key, this.value);
 }
 
-class HashTable<k, v> {
-  List<HashNode<k, v>>? bucketArray;
+class HashTable {
+  List<HashNode>? bucketArray;
   late int size;
 
   HashTable(this.size) {
-    bucketArray = List<HashNode<k, v>>.filled(size, HashNode([] as k, [] as v));
+    bucketArray = List<HashNode>.filled(size, HashNode('', '' as dynamic));
   }
 
-  int hash(k key) {
-    int index = key.hashCode;
+  int hash(String key) {
+    int index = 0;
+    for (int i = 0; i < key.length; i++) {
+      index += key.codeUnitAt(i);
+    }
     return index % size;
   }
 
-  v? get(k key) {
+  dynamic get(String key) {
     int index = hash(key);
-    HashNode<k, v>? temp = bucketArray![index];
+    HashNode? temp = bucketArray![index];
     while (temp != null) {
       if (temp.key == key) {
         return temp.value;
       }
       temp = temp.next;
     }
-    return null;
+    return 'Value not found';
   }
 
-  void set(k key, v value) {
+  void set(String key, dynamic value) {
     int index = hash(key);
-    HashNode<k, v>? temp = bucketArray![index];
+    HashNode? temp = bucketArray![index];
     while (temp != null) {
       if (temp.key == key) {
         temp.value = value;
@@ -41,15 +44,14 @@ class HashTable<k, v> {
       }
       temp = temp.next;
     }
-    temp = bucketArray![index];
-    HashNode<k, v> newNode = HashNode(key, value);
-    newNode.next = temp;
+    HashNode? newNode = HashNode(key, value);
+    newNode.next = bucketArray![index];
     bucketArray![index] = newNode;
   }
 
-  void remove(k key) {
+  void remove(String key) {
     int index = hash(key);
-    HashNode<k, v>? temp = bucketArray![index];
+    HashNode? temp = bucketArray![index];
     if (temp.key == key) {
       bucketArray![index] = temp.next!;
       return;
@@ -62,13 +64,27 @@ class HashTable<k, v> {
       temp = temp.next;
     }
   }
+
+  display() {
+    for (var value in bucketArray!) {
+      HashNode? current = value;
+      while (current != null) {
+        print('${current.key}: ${current.value} ');
+        current = current.next;
+      }
+    }
+  }
 }
 
 void main() {
   HashTable table = HashTable(11);
-  table.set(7, 'Joyal');
-  table.set(18, 'Jo');
-  // table.remove(7);
-  print(table.get(7));
-  print(table.get(18));
+  table.set('AB', 'Joyal');
+  table.set('BA', 'Jo');
+  table.set('81', 'siiii');
+  // table.remove('7');
+  print(table.get('AB'));
+  print(table.get('BA'));
+  // table.remove('AB');
+  print(table.get('AB'));
+  table.display();
 }
