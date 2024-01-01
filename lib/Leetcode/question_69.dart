@@ -11,6 +11,6 @@ int mySqrt(int x) {
 }
 
 void main() {
-  int result = mySqrt(4);
-  print(result);
+  int output = mySqrt(4);
+  print(output);
 }
