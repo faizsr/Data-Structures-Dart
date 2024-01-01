@@ -10,7 +10,7 @@ int mySqrt(int x) {
   return count;
 }
 
-// void main() {
-//   int result = mySqrt(4);
-//   print(result);
-// }
+void main() {
+  int result = mySqrt(4);
+  print(result);
+}
