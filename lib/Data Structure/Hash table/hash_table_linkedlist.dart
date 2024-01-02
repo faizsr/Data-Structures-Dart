@@ -56,7 +56,6 @@ class HashTable {
       bucketArray![index] = temp.next!;
       return;
     }
-
     while (temp!.next != null) {
       if (temp.next!.key == key) {
         temp.next = temp.next!.next;

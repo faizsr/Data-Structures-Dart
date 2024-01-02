@@ -7,7 +7,6 @@ mergeSort(List<int> arr) {
   if (arr.length < 2) {
     return arr;
   }
-
   int mid = (arr.length / 2).floor();
   List<int> leftArr = arr.sublist(0, mid);
   List<int> rightArr = arr.sublist(mid);
@@ -19,8 +18,6 @@ merge(List<int> leftArr, List<int> rightArr) {
   while (leftArr.isNotEmpty && rightArr.isNotEmpty) {
     if (leftArr[0] <= rightArr[0]) {
       sortedArr.add(leftArr.removeAt(0));
-      print(sortedArr);
-      print(leftArr);
     } else {
       sortedArr.add(rightArr.removeAt(0));
     }
