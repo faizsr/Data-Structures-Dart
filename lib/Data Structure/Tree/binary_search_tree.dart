@@ -2,19 +2,38 @@ import 'dart:io';
 
 void main() {
   BinarySearchTree bst = BinarySearchTree();
-  bst.insert(10);
-  bst.insert(5);
-  bst.insert(15);
-  bst.insert(3);
-  bst.insert(7);
-  // bst.insert(14);
-  // bst.insert(20);
-//   print(bst.search(bst.root, 20));
-  bst.preOrder(bst.root);
+  bst.insert(50);
+  bst.insert(25);
+  bst.insert(75);
+  bst.insert(12);
+  bst.insert(6);
+  bst.insert(60);
+  bst.insert(52);
+  bst.insert(70);
+  // bst.insert(7);
+
+  // stdout.write('Preorder: ');
+  // bst.preOrder(bst.root);
+  // print('');
+
+  // stdout.write('Inorder: ');
+  // bst.inOrder(bst.root);
+  // print('');
+
+  // stdout.write('Postorder: ');
+  // bst.postOrder(bst.root);
+  // print('');
+
+  stdout.write('Level order: ');
+  bst.levelOrder();
   print('');
-  bst.inOrder(bst.root);
-  print('');
-  bst.postOrder(bst.root);
+
+  // print('Smallest node: ${bst.min(bst.root)}');
+  // print('Largest node: ${bst.max(bst.root)}');
+
+  bst.delete(25);
+  stdout.write('Level order: ');
+  bst.levelOrder();
 }
 
 class Node<T> {
@@ -94,5 +113,69 @@ class BinarySearchTree {
       postOrder(root.right);
       stdout.write('${root.value} \t');
     }
+  }
+
+  // ========= BFS (Breadth first search) =========
+
+  levelOrder() {
+    List<Node>? queue = [];
+    queue.add(root!);
+    while (queue.isNotEmpty) {
+      Node? current = queue.removeAt(0);
+      stdout.write('${current.value} \t');
+      if (current.left != null) {
+        queue.add(current.left!);
+      }
+      if (current.right != null) {
+        queue.add(current.right!);
+      }
+    }
+  }
+
+  // ========== Finding the min and max value ==========
+
+  min(Node? root) {
+    if (root!.left == null) {
+      return root.value;
+    } else {
+      return min(root.left);
+    }
+  }
+
+  max(Node? root) {
+    if (root!.right == null) {
+      return root.value;
+    } else {
+      return max(root.right);
+    }
+  }
+
+  // ========== Delete operation ==========
+
+  delete(dynamic value) {
+    root = deleteNode(root, value);
+  }
+
+  deleteNode(Node? root, dynamic value) {
+    if (root == null) {
+      return root;
+    }
+    if (value < root.value) {
+      root.left = deleteNode(root.left, value);
+    } else if (value > root.value) {
+      root.right = deleteNode(root.right, value);
+    } else {
+      if (root.left == null && root.right == null) {
+        return null;
+      }
+      if (root.left == null) {
+        return root.right;
+      } else if (root.right == null) {
+        return root.left;
+      }
+      root.value = min(root.right);
+      root.right = deleteNode(root.right, root.value);
+    }
+    return root;
   }
 }

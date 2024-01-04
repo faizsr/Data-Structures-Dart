@@ -8,6 +8,6 @@ f(n) {
   }
 
   f(n - 1);
-  print(n);
+  print('n is $n');
   f(n - 1);
 }
