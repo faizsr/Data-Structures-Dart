@@ -138,7 +138,7 @@ class LinkedList {
     }
 
     while (current != null) {
-      stdout.write('${current.value} \t');
+      stdout.write('${current.value}    ');
       current = current.next;
     }
     print(' ');
@@ -165,6 +165,30 @@ class LinkedList {
     }
     print(current.value);
   }
+
+  findLength() {
+    Node? current = head;
+    int length = 0;
+    while (current != null) {
+      length++;
+      current = current.next;
+    }
+    return length;
+  }
+
+  findMiddleElement() {
+    if (head != null) {
+      int length = findLength();
+      Node? current = head;
+      int middle = (length / 2).floor();
+      print('middle: $middle');
+      while (middle != length) {
+        current = current!.next;
+        stdout.write('${current!.value}   ');
+        middle++;
+      }
+    }
+  }
 }
 
 void main() {
@@ -177,14 +201,16 @@ void main() {
   mylist.append(10);
   mylist.displayList();
 
-  mylist.removeAtPosition(4);
-  mylist.displayList();
-  mylist.removeByvalue(1);
-  mylist.displayList();
-  mylist.search(3);
+  // mylist.removeAtPosition(4);
+  // mylist.displayList();
+  // mylist.removeByvalue(1);
+  // mylist.displayList();
+  // mylist.search(3);
   // mylist.reverse();
   // mylist.displayList();
 
-  mylist.insertBefore(10, 50);
-  mylist.displayList();
+  // mylist.insertBefore(10, 50);
+  // mylist.displayList();
+
+  mylist.findMiddleElement();
 }
