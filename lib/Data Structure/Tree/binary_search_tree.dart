@@ -34,6 +34,8 @@ void main() {
   bst.delete(25);
   stdout.write('Level order: ');
   bst.levelOrder();
+  print('');
+  print(bst.isValidBST(bst.root, double.negativeInfinity, double.infinity));
 }
 
 class Node<T> {
@@ -120,6 +122,7 @@ class BinarySearchTree {
   levelOrder() {
     List<Node>? queue = [];
     queue.add(root!);
+    // print('root :${queue[0].value}');
     while (queue.isNotEmpty) {
       Node? current = queue.removeAt(0);
       stdout.write('${current.value} \t');
@@ -177,5 +180,16 @@ class BinarySearchTree {
       root.right = deleteNode(root.right, root.value);
     }
     return root;
+  }
+
+  bool isValidBST(Node? root, dynamic minValue, dynamic maxValue) {
+    if (root == null) {
+      return true;
+    }
+    if (root.value <= minValue || root.value >= maxValue) {
+      return false;
+    }
+    return isValidBST(root.left, minValue, root.value) &&
+        isValidBST(root.right, root.value, maxValue);
   }
 }

@@ -26,6 +26,7 @@ class HashTable {
         (item) => item[0] == key,
         orElse: () => [],
       );
+      print('same key $sameKeyItem');
       if (sameKeyItem.isNotEmpty) {
         sameKeyItem[1] = value;
       } else {
@@ -42,6 +43,8 @@ class HashTable {
         (item) => item[0] == key,
         orElse: () => [],
       );
+      // print('same key $sameKeyItem');
+
       if (sameKeyItem.isNotEmpty) {
         return sameKeyItem[1];
       }
@@ -76,6 +79,7 @@ void main() {
   HashTable table = HashTable(50);
   table.set("name", "User 1");
   table.set("mane", "User 2");
+  table.set("name", "user 4");
   table.set("age", 10);
   print(table.get("age"));
   table.remove('name');

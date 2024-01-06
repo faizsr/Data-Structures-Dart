@@ -71,13 +71,10 @@ class MaxHeap {
   }
 
   buildHeapFromArray(List<int> array) {
-    // heap = array;
-    // int firstNonLeafIndex = (array.length - 2) ~/ 2;
-    // for (int i = firstNonLeafIndex; i >= 0; i--) {
-    //   heapifyDown(i);
-    // }
-    for (int i = 0; i < array.length; i++) {
-      insert(array[i]);
+    heap = array;
+    int firstNonLeafIndex = (array.length - 2) ~/ 2;
+    for (int i = firstNonLeafIndex; i >= 0; i--) {
+      heapifyDown(i);
     }
   }
 }
@@ -93,5 +90,5 @@ void main() {
   print(maxHeap.heap);
   // print(maxHeap.remove());
   // print(maxHeap.heap);
-  // print(maxHeap.heapSort());
+  print(maxHeap.heapSort());
 }

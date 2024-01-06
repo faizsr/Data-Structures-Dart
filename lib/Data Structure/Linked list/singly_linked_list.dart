@@ -198,26 +198,26 @@ class LinkedList {
 void main() {
   LinkedList linkedList = LinkedList();
   linkedList.prepend(2);
-  linkedList.printList();
+  // linkedList.printList();
   linkedList.prepend(1);
-  linkedList.printList();
-  linkedList.append(2);
-  linkedList.printList();
+  // linkedList.printList();
+  linkedList.append(3);
+  // linkedList.printList();
   linkedList.append(5);
   linkedList.printList();
-  linkedList.insertAtPosition(5, 5);
-  linkedList.printList();
-  // linkedList.removeAtPostion(1);
-  // linkedList.removeValue(3);
-  // print(linkedList.search(11));
+  // linkedList.insertAtPosition(5, 5);
   // linkedList.printList();
-  linkedList.removeDuplicatesFromSortedList();
+  // linkedList.removeAtPostion(1);
+  linkedList.removeValue(3);
+  // print(linkedList.search(11));
   linkedList.printList();
-  print("\nIs List Empty: ${linkedList.isEmpty()}");
+  // linkedList.removeDuplicatesFromSortedList();
+  // linkedList.printList();
+  // print("\nIs List Empty: ${linkedList.isEmpty()}");
 
-  print("Size of list: ${linkedList.getSize()}");
+  // print("Size of list: ${linkedList.getSize()}");
 
-  LinkedList ls = LinkedList();
-  ls.arrayToLinkedList([3, 5, 25, 2, 2, 4]);
-  ls.printList();
+  // LinkedList ls = LinkedList();
+  // ls.arrayToLinkedList([3, 5, 25, 2, 2, 4]);
+  // ls.printList();
 }

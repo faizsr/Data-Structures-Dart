@@ -30,17 +30,17 @@ class MinHeap {
   heapifyDown(int index) {
     int leftChildIndex = getLeftChildIndex(index);
     int rightChildIndex = getRightChildIndex(index);
-    int maxIndex = index;
-    if (leftChildIndex < heap.length && heap[leftChildIndex] < heap[maxIndex]) {
-      maxIndex = leftChildIndex;
+    int minIndex = index;
+    if (leftChildIndex < heap.length && heap[leftChildIndex] < heap[minIndex]) {
+      minIndex = leftChildIndex;
     }
     if (rightChildIndex < heap.length &&
-        heap[rightChildIndex] < heap[maxIndex]) {
-      maxIndex = rightChildIndex;
+        heap[rightChildIndex] < heap[minIndex]) {
+      minIndex = rightChildIndex;
     }
-    if (maxIndex != index) {
-      swap(index, maxIndex);
-      heapifyDown(maxIndex);
+    if (minIndex != index) {
+      swap(index, minIndex);
+      heapifyDown(minIndex);
     }
   }
 
@@ -56,10 +56,10 @@ class MinHeap {
     if (heap.length == 1) {
       return heap.removeLast();
     }
-    int max = heap[0];
+    int min = heap[0];
     heap[0] = heap.removeLast();
     heapifyDown(0);
-    return max;
+    return min;
   }
 
   heapSort() {
@@ -71,13 +71,10 @@ class MinHeap {
   }
 
   buildHeapFromArray(List<int> array) {
-    // heap = array;
-    // int firstNonLeafIndex = (array.length - 2) ~/ 2;
-    // for (int i = firstNonLeafIndex; i >= 0; i--) {
-    //   heapifyDown(i);
-    // }
-    for (int i = 0; i < array.length; i++) {
-      insert(array[i]);
+    heap = array;
+    int firstNonLeafIndex = (array.length - 2) ~/ 2;
+    for (int i = firstNonLeafIndex; i >= 0; i--) {
+      heapifyDown(i);
     }
   }
 }
