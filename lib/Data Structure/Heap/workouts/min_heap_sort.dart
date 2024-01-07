@@ -1,4 +1,4 @@
-class MaxHeap {
+class MinHeapSort {
   List<int> heap = [];
 
   getParentIndex(int index) {
@@ -19,34 +19,21 @@ class MaxHeap {
     heap[index2] = temp;
   }
 
-  heapifyUp(int index) {
-    int parentIndex = getParentIndex(index);
-    if (parentIndex >= 0 && heap[parentIndex] < heap[index]) {
-      swap(index, parentIndex);
-      heapifyUp(parentIndex);
-    }
-  }
-
   heapifyDown(int index) {
     int leftChildIndex = getLeftChildIndex(index);
     int rightChildIndex = getRightChildIndex(index);
-    int maxIndex = index;
-    if (leftChildIndex < heap.length && heap[leftChildIndex] > heap[maxIndex]) {
-      maxIndex = leftChildIndex;
+    int minIndex = index;
+    if (leftChildIndex < heap.length && heap[leftChildIndex] < heap[minIndex]) {
+      minIndex = leftChildIndex;
     }
     if (rightChildIndex < heap.length &&
-        heap[rightChildIndex] > heap[maxIndex]) {
-      maxIndex = rightChildIndex;
+        heap[rightChildIndex] < heap[minIndex]) {
+      minIndex = rightChildIndex;
     }
-    if (maxIndex != index) {
-      swap(index, maxIndex);
-      heapifyDown(maxIndex);
+    if (minIndex != index) {
+      swap(index, minIndex);
+      heapifyDown(minIndex);
     }
-  }
-
-  insert(int value) {
-    heap.add(value);
-    heapifyUp(heap.length - 1);
   }
 
   remove() {
@@ -56,10 +43,10 @@ class MaxHeap {
     if (heap.length == 1) {
       return heap.removeLast();
     }
-    int max = heap[0];
+    int min = heap[0];
     heap[0] = heap.removeLast();
     heapifyDown(0);
-    return max;
+    return min;
   }
 
   heapSort() {
@@ -80,15 +67,8 @@ class MaxHeap {
 }
 
 void main() {
-  MaxHeap maxHeap = MaxHeap();
-  maxHeap.buildHeapFromArray([3, 7, 2, 1, 9, 8]);
-  maxHeap.insert(10);
-  maxHeap.insert(5);
-  maxHeap.insert(2);
-  maxHeap.insert(3);
-  maxHeap.insert(4);
-  print(maxHeap.heap);
-  print(maxHeap.remove());
-  print(maxHeap.heap);
-  print(maxHeap.heapSort());
+  MinHeapSort minHeap = MinHeapSort();
+  minHeap.buildHeapFromArray([3, 7, 2, 1, 9, 8]);
+  print(minHeap.heap);
+  print(minHeap.heapSort());
 }

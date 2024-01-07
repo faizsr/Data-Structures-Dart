@@ -143,18 +143,6 @@ class BinarySearchTree {
     }
     return root;
   }
-
-  // ========== Valid Binary Search Tree ==========
-  bool isValidBST(Node? root, dynamic minValue, dynamic maxValue) {
-    if (root == null) {
-      return true;
-    }
-    if (root.value <= minValue || root.value >= maxValue) {
-      return false;
-    }
-    return isValidBST(root.left, minValue, root.value) &&
-        isValidBST(root.right, root.value, maxValue);
-  }
 }
 
 void main() {
@@ -191,6 +179,4 @@ void main() {
   bst.delete(25);
   stdout.write('Level order: ');
   bst.levelOrder();
-  print('');
-  print(bst.isValidBST(bst.root, double.negativeInfinity, double.infinity));
 }

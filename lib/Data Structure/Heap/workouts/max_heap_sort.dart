@@ -1,4 +1,4 @@
-class MaxHeap {
+class MaxHeapSort {
   List<int> heap = [];
 
   getParentIndex(int index) {
@@ -19,14 +19,6 @@ class MaxHeap {
     heap[index2] = temp;
   }
 
-  heapifyUp(int index) {
-    int parentIndex = getParentIndex(index);
-    if (parentIndex >= 0 && heap[parentIndex] < heap[index]) {
-      swap(index, parentIndex);
-      heapifyUp(parentIndex);
-    }
-  }
-
   heapifyDown(int index) {
     int leftChildIndex = getLeftChildIndex(index);
     int rightChildIndex = getRightChildIndex(index);
@@ -42,11 +34,6 @@ class MaxHeap {
       swap(index, maxIndex);
       heapifyDown(maxIndex);
     }
-  }
-
-  insert(int value) {
-    heap.add(value);
-    heapifyUp(heap.length - 1);
   }
 
   remove() {
@@ -80,15 +67,8 @@ class MaxHeap {
 }
 
 void main() {
-  MaxHeap maxHeap = MaxHeap();
+  MaxHeapSort maxHeap = MaxHeapSort();
   maxHeap.buildHeapFromArray([3, 7, 2, 1, 9, 8]);
-  maxHeap.insert(10);
-  maxHeap.insert(5);
-  maxHeap.insert(2);
-  maxHeap.insert(3);
-  maxHeap.insert(4);
-  print(maxHeap.heap);
-  print(maxHeap.remove());
   print(maxHeap.heap);
   print(maxHeap.heapSort());
 }

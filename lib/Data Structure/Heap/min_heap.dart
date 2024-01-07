@@ -82,13 +82,13 @@ class MinHeap {
 void main() {
   MinHeap minHeap = MinHeap();
   minHeap.buildHeapFromArray([3, 7, 2, 1, 9, 8]);
-  // minHeap.insert(10);
-  // minHeap.insert(5);
-  // minHeap.insert(2);
-  // minHeap.insert(3);
-  // minHeap.insert(4);
+  minHeap.insert(10);
+  minHeap.insert(5);
+  minHeap.insert(2);
+  minHeap.insert(3);
+  minHeap.insert(4);
   print(minHeap.heap);
-  // print(minHeap.remove());
-  // print(minHeap.heap);
-  // print(minHeap.heapSort());
+  print(minHeap.remove());
+  print(minHeap.heap);
+  print(minHeap.heapSort());
 }
