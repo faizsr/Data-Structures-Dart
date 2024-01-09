@@ -13,8 +13,12 @@ class Graph {
   }
 
   void addEdge(String vertex1, String vertex2) {
-    edges[vertex1]!.add(vertex2);
-    edges[vertex2]!.add(vertex1);
+    if (edges.containsKey(vertex1) && edges.containsKey(vertex2)) {
+      edges[vertex1]!.add(vertex2);
+      edges[vertex2]!.add(vertex1);
+    } else {
+      print('Add vertex first');
+    }
   }
 
   void display() {
@@ -78,6 +82,7 @@ class Graph {
         }
       }
     }
+
     dfsHelper(startVertex);
   }
 }
@@ -89,6 +94,7 @@ void main() {
   graph.addVertex("C");
   graph.addVertex("D");
   graph.addEdge("A", "D");
+  graph.addEdge("A", "Z");
   graph.addEdge("C", "B");
   graph.addEdge("B", "D");
   graph.bfs("A");

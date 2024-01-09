@@ -49,6 +49,30 @@ class Trie {
     }
     return true;
   }
+
+  List<String> getWordsWithPrefix(String prefix) {
+    TrieNode? currentNode = root;
+    for (int i = 0; i < prefix.length; i++) {
+      String charToFind = prefix[i];
+      if (!currentNode!.children.containsKey(charToFind)) {
+        return [];
+      }
+      currentNode = currentNode.children[charToFind];
+    }
+    List<String> words = [];
+    collectWordsWithPrefix(currentNode, prefix, words);
+    return words;
+  }
+
+  void collectWordsWithPrefix(
+      TrieNode? node, String currentPrefix, List<String> words) {
+    if (node!.isWordEnd) {
+      words.add(currentPrefix);
+    }
+    for (String char in node.children.keys) {
+      collectWordsWithPrefix(node.children[char], currentPrefix + char, words);
+    }
+  }
 }
 
 // ===========Test Cases===========
@@ -56,9 +80,12 @@ class Trie {
 void main() {
   Trie trie = Trie();
 
-  trie.insert("athul");
-  trie.insert("athulya");
+  trie.insert("jacob");
+  trie.insert("jamal");
+  trie.insert('cat');
+  trie.insert('car');
 
-  print(trie.contains("athul")); // Output: true
-  print(trie.startsWithPrefix("ath")); // Output: true
+  print(trie.contains("jacob")); // Output: true
+  print(trie.startsWithPrefix("ja")); // Output: true
+  print(trie.getWordsWithPrefix("ca"));
 }

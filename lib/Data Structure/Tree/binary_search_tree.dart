@@ -82,7 +82,7 @@ class BinarySearchTree {
   // ========= BFS (Breadth first search) =========
 
   levelOrder() {
-    List<Node>? queue = [];
+    List<Node> queue = [];
     queue.add(root!);
     // print('root :${queue[0].value}');
     while (queue.isNotEmpty) {
@@ -155,19 +155,44 @@ class BinarySearchTree {
     return isValidBST(root.left, minValue, root.value) &&
         isValidBST(root.right, root.value, maxValue);
   }
+
+  int maxDepth(Node? root) {
+    if (root == null) {
+      return 0;
+    }
+    int left = maxDepth(root.left);
+    int right = maxDepth(root.right);
+
+    return left > right ? left + 1 : right + 1;
+  }
+
+  int minDepth(Node? root) {
+    if (root == null) {
+      return 0;
+    }
+    int left = minDepth(root.left);
+    int right = minDepth(root.right);
+
+    return left > right ? left + 1 : right + 1;
+  }
 }
 
 void main() {
   BinarySearchTree bst = BinarySearchTree();
-  bst.insert(50);
-  bst.insert(25);
-  bst.insert(75);
-  bst.insert(12);
+  // bst.insert(50);
+  // bst.insert(25);
+  // bst.insert(75);
+  // bst.insert(12);
+  // bst.insert(6);
+  // bst.insert(60);
+  // bst.insert(52);
+  // bst.insert(70);
+  // bst.insert(7);
+  bst.insert(2);
+  bst.insert(3);
+  bst.insert(4);
+  bst.insert(5);
   bst.insert(6);
-  bst.insert(60);
-  bst.insert(52);
-  bst.insert(70);
-  bst.insert(7);
 
   stdout.write('Preorder: ');
   bst.preOrder(bst.root);
@@ -193,4 +218,6 @@ void main() {
   bst.levelOrder();
   print('');
   print(bst.isValidBST(bst.root, double.negativeInfinity, double.infinity));
+
+  print(bst.minDepth(bst.root));
 }
