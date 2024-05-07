@@ -44,43 +44,43 @@ class Stack {
   bool isEmpty() {
     return top == null;
   }
+}
 
-  removeNode(int value) {
-    Stack stack = Stack();
-    display();
-    while (!isEmpty()) {
-      var val = pop();
-      if (val != value) {
-        stack.push(val);
-      }
+class QueueUsingStack {
+  Stack stack1 = Stack();
+  Stack stack2 = Stack();
+
+  enqueue(value) {
+    while (!stack1.isEmpty()) {
+      stack2.push(stack1.pop());
     }
-    stack.display();
+    stack1.push(value);
+    while (!stack2.isEmpty()) {
+      stack1.push(stack2.pop());
+    }
   }
 
-  String reverse(String str) {
-    Stack stack = Stack();
-    String reversed = '';
-    for (int i = 0; i < str.length; i++) {
-      stack.push(str[i]);
+  dequeue() {
+    if (stack1.isEmpty()) {
+      print('Queue is empty');
+      return;
     }
+    return stack1.pop();
+  }
 
-    while (!stack.isEmpty()) {
-      reversed += stack.pop().toString();
-    }
-    return reversed;
+  void display() {
+    stack1.display();
   }
 }
 
 void main(List<String> args) {
-  Stack stack = Stack();
+  QueueUsingStack queue = QueueUsingStack();
 
-  stack.push(10);
-  stack.push(20);
-  stack.push(60);
-  stack.push(30);
-  stack.display();
-  stack.pop();
-  stack.display();
-  print(stack.reverse('str'));
-  stack.removeNode(20);
+  queue.enqueue(10);
+  queue.enqueue(20);
+  queue.enqueue(60);
+  queue.enqueue(30);
+  queue.display();
+  queue.dequeue();
+  queue.display();
 }
